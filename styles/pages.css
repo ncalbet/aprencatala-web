@@ -1,0 +1,207 @@
+/* Shared styles for AprènCatalà secondary pages */
+:root{
+  --navy:#1a2f4e;
+  --navy-2:#243d63;
+  --gold:#f59e0b;
+  --gold-2:#d97706;
+  --gold-soft:#fef3c7;
+  --cream:#f5f0eb;
+  --white:#ffffff;
+  --green:#16a34a;
+  --green-soft:#dcfce7;
+  --green-deep:#15803d;
+  --red-soft:#fee2e2;
+  --red-deep:#b91c1c;
+  --ink:#1a2f4e;
+  --ink-soft:#516079;
+  --line:#e7ddd0;
+  --shadow:0 10px 30px rgba(26,47,78,.08), 0 2px 6px rgba(26,47,78,.05);
+  --shadow-lg:0 30px 70px rgba(26,47,78,.18), 0 8px 20px rgba(26,47,78,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:"DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  line-height:1.6;
+}
+.container{ width:min(1100px, 92vw); margin:0 auto; }
+.container-narrow{ width:min(780px, 92vw); margin:0 auto; }
+
+/* ===== Nav ===== */
+.nav{
+  position:sticky; top:0; z-index:40;
+  background:var(--navy); color:#fff;
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 0;
+}
+.wordmark{
+  font-family:"Libre Caslon Text", Georgia, serif;
+  font-size:24px;
+  display:inline-flex; align-items:baseline; gap:2px;
+  text-decoration:none;
+}
+.wordmark .a{color:#fff;}
+.wordmark .c{color:var(--gold); font-style:italic;}
+.nav-links{display:flex; gap:28px; align-items:center}
+.nav-links a{
+  color:rgba(255,255,255,.78);
+  text-decoration:none; font-size:14.5px; font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff; position:relative}
+.nav-links a.active::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px;
+  height:2px; background:var(--gold); border-radius:2px;
+}
+.nav-cta{
+  background:var(--gold); color:#1a1a1a !important;
+  padding:9px 16px; border-radius:999px;
+  font-weight:600 !important; font-size:14px !important;
+}
+.nav-cta:hover{background:#fbbf24}
+.nav-cta::after{display:none !important}
+@media (max-width:780px){
+  .nav-links a:not(.nav-cta){display:none}
+}
+
+/* ===== Buttons ===== */
+.btn{
+  appearance:none; border:0; cursor:pointer;
+  font-family:inherit; font-weight:600; font-size:16px;
+  padding:14px 22px; border-radius:14px; text-decoration:none;
+  display:inline-flex; align-items:center; gap:10px;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s;
+}
+.btn svg.arrow{transition: transform .25s ease}
+.btn:hover svg.arrow{transform: translateX(4px)}
+.btn-primary{
+  background:var(--gold); color:#1a1a1a;
+  box-shadow: 0 8px 18px rgba(245,158,11,.35), inset 0 -2px 0 rgba(0,0,0,.06);
+}
+.btn-primary:hover{transform:translateY(-1px); background:#fbbf24}
+.btn-secondary{ background:var(--navy); color:#fff; }
+.btn-secondary:hover{background:var(--navy-2); transform:translateY(-1px)}
+.btn-ghost{ background:transparent; color:var(--navy); border:1.5px solid var(--navy); }
+.btn-ghost:hover{background:var(--navy); color:#fff}
+
+/* ===== Page header ===== */
+.page-head{
+  padding:64px 0 40px;
+  background: var(--cream);
+  border-bottom:1px solid var(--line);
+}
+.crumb{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; color:var(--ink-soft);
+  margin-bottom:18px;
+}
+.crumb a{color:var(--ink-soft); text-decoration:none}
+.crumb a:hover{color:var(--navy)}
+.page-eyebrow{
+  text-transform:uppercase; letter-spacing:.18em;
+  font-size:12px; font-weight:600; color:var(--gold-2);
+}
+.page-title{
+  font-family:"Libre Caslon Text", Georgia, serif;
+  font-size: clamp(36px, 5vw, 56px);
+  color:var(--navy);
+  margin:10px 0 14px;
+  letter-spacing:-.4px; line-height:1.05;
+  text-wrap:balance;
+}
+.page-title em{color:var(--gold); font-style:italic}
+.page-lede{
+  font-size:18px; color:var(--ink-soft);
+  max-width:620px; margin:0;
+}
+
+/* ===== Page body ===== */
+.page-body{ padding: 60px 0 90px; }
+.prose h2{
+  font-family:"Libre Caslon Text", Georgia, serif;
+  font-size:28px; color:var(--navy);
+  margin:48px 0 14px; line-height:1.2; letter-spacing:-.2px;
+}
+.prose h2:first-child{margin-top:0}
+.prose h3{
+  font-family:"Libre Caslon Text", Georgia, serif;
+  font-size:20px; color:var(--navy);
+  margin:30px 0 10px;
+}
+.prose p, .prose li{
+  font-size:16px; color:var(--ink); line-height:1.7;
+  text-wrap:pretty;
+}
+.prose ul, .prose ol{padding-left:22px; margin:14px 0}
+.prose li{margin:4px 0}
+.prose a{color:var(--gold-2); text-decoration:underline; text-underline-offset:3px}
+.prose a:hover{color:var(--navy)}
+.prose .updated{
+  font-size:13px; color:var(--ink-soft); margin-bottom:30px;
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line);
+}
+.prose .updated .dot{
+  width:8px; height:8px; border-radius:50%; background:var(--green);
+}
+.prose hr{
+  border:0; border-top:1px solid var(--line);
+  margin:40px 0;
+}
+
+/* TOC */
+.layout-with-toc{
+  display:grid; grid-template-columns: 240px 1fr; gap:60px;
+  align-items:start;
+}
+.toc{
+  position:sticky; top:90px;
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding:18px 16px;
+  font-size:13.5px;
+}
+.toc-title{
+  text-transform:uppercase; letter-spacing:.14em;
+  font-size:11px; color:var(--ink-soft); font-weight:700;
+  margin-bottom:10px;
+}
+.toc ul{list-style:none; padding:0; margin:0}
+.toc li{margin:6px 0}
+.toc a{
+  color:var(--ink-soft); text-decoration:none;
+  padding:4px 8px; display:block; border-radius:6px;
+  transition: background .15s, color .15s;
+}
+.toc a:hover{background:var(--cream); color:var(--navy)}
+@media (max-width:880px){
+  .layout-with-toc{grid-template-columns:1fr; gap:30px}
+  .toc{position:static}
+}
+
+/* ===== Footer ===== */
+footer{
+  background:var(--navy); color:rgba(255,255,255,.7);
+  padding:40px 0 30px; font-size:14px;
+}
+.foot{
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  flex-wrap:wrap;
+}
+.foot a{color:rgba(255,255,255,.7); text-decoration:none; margin-right:18px}
+.foot a:hover{color:#fff}
+
+/* ===== Animations ===== */
+.reveal{opacity:0; transform:translateY(20px); transition:opacity .8s ease, transform .8s ease;}
+.reveal.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none}
+}

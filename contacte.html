@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contacte — AprènCatalà</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/pages.css">
+<style>
+  .contact-grid{
+    display:grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap:60px;
+    align-items:start;
+  }
+  @media (max-width:880px){
+    .contact-grid{grid-template-columns:1fr; gap:40px}
+  }
+  .info-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:28px;
+  }
+  .info-card h3{
+    font-family:"Libre Caslon Text", Georgia, serif;
+    font-size:22px; color:var(--navy); margin:0 0 8px;
+    line-height:1.2;
+  }
+  .info-card p{margin:0 0 18px; color:var(--ink-soft); font-size:15px}
+  .info-item{
+    display:flex; gap:14px; align-items:flex-start;
+    padding:14px 0; border-top:1px solid var(--line);
+  }
+  .info-item:first-of-type{border-top:0; padding-top:0}
+  .info-item .ico{
+    width:40px;height:40px;border-radius:10px;
+    background:var(--cream); color:var(--navy);
+    display:flex;align-items:center;justify-content:center; flex:none;
+  }
+  .info-item h4{margin:0 0 2px; font-size:15px; color:var(--navy); font-weight:600; font-family:"DM Sans", sans-serif}
+  .info-item p{margin:0; font-size:14px; color:var(--ink-soft)}
+  .info-item.gold .ico{background:var(--gold-soft); color:#92400e}
+  .info-item.green .ico{background:var(--green-soft); color:var(--green-deep)}
+
+  /* form */
+  .form-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:32px;
+    box-shadow:var(--shadow);
+  }
+  .form-card h3{
+    font-family:"Libre Caslon Text", Georgia, serif;
+    font-size:22px; color:var(--navy); margin:0 0 6px;
+  }
+  .form-card .sub{margin:0 0 22px; color:var(--ink-soft); font-size:14.5px}
+  .field{margin-bottom:18px}
+  .field label{
+    display:block; font-size:13px; font-weight:600; color:var(--navy);
+    margin-bottom:6px;
+  }
+  .field label .req{color:var(--gold-2)}
+  .field input, .field select, .field textarea{
+    width:100%; font-family:inherit; font-size:15px;
+    padding:12px 14px;
+    border:1.5px solid var(--line); border-radius:10px;
+    background:var(--cream);
+    color:var(--ink);
+    transition: border-color .2s, background .2s, box-shadow .2s;
+    outline:none;
+  }
+  .field textarea{min-height:140px; resize:vertical; line-height:1.5}
+  .field input:focus, .field select:focus, .field textarea:focus{
+    border-color:var(--navy);
+    background:#fff;
+    box-shadow: 0 0 0 4px rgba(26,47,78,.08);
+  }
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:520px){.row-2{grid-template-columns:1fr}}
+  .honey{ position:absolute !important; left:-9999px; top:-9999px; }
+  .privacy-note{
+    font-size:13px; color:var(--ink-soft); margin-top:10px;
+    background:var(--cream); padding:12px 14px; border-radius:10px;
+    line-height:1.5;
+  }
+  .privacy-note a{color:var(--gold-2)}
+  .form-feedback{
+    background:var(--green-soft); color:var(--green-deep);
+    padding:14px 18px; border-radius:12px;
+    border:1px solid var(--green); font-size:15px;
+    margin-bottom:18px;
+    display:none;
+  }
+  .form-feedback.error{
+    background:var(--red-soft); color:var(--red-deep); border-color:var(--red-deep);
+  }
+  .form-feedback.show{display:block}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="wordmark" href="index.html"><span class="a">Aprèn</span><span class="c">Català</span></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="index.html#funcionalitats">Funcionalitats</a>
+      <a href="index.html#captures">L'app</a>
+      <a href="index.html#per-a-qui">Per a qui</a>
+      <a href="index.html#faq">Preguntes</a>
+      <a class="nav-cta" href="https://app.aprencatala.cat" target="_blank" rel="noopener">Comença ara</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container reveal">
+    <div class="crumb">
+      <a href="index.html">Inici</a> <span>›</span> <span>Contacte</span>
+    </div>
+    <div class="page-eyebrow">Parla amb nosaltres</div>
+    <h1 class="page-title">Tens un dubte, un suggeriment o un <em>error trobat</em>?</h1>
+    <p class="page-lede">Escriu-nos. Llegim totes les respostes i intentem contestar en menys de 48 hores. Si has detectat alguna errada en un exercici, ens fas un favor enorme.</p>
+  </div>
+</section>
+
+<section class="page-body">
+  <div class="container">
+    <div class="contact-grid">
+
+      <aside class="reveal">
+        <div class="info-card">
+          <h3>Com et podem ajudar</h3>
+          <p>Tria el motiu que millor s'adapti i et redirigirem a la persona adequada.</p>
+
+          <div class="info-item">
+            <div class="ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            </div>
+            <div>
+              <h4>Dubtes generals</h4>
+              <p>Funcionament, nivells, com començar.</p>
+            </div>
+          </div>
+
+          <div class="info-item gold">
+            <div class="ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div>
+              <h4>Errades en exercicis</h4>
+              <p>Si veus alguna cosa que no quadra, digues-nos quin exercici.</p>
+            </div>
+          </div>
+
+          <div class="info-item green">
+            <div class="ico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1.5 3.5 4 4 4 7a4 4 0 0 1-8 0c0-1 .5-1.8 1-2.5C10 8 11 6 12 2Z"/><path d="M9 14a3 3 0 0 0 6 0"/></svg>
+            </div>
+            <div>
+              <h4>Suggeriments i idees</h4>
+              <p>Què t'agradaria veure a l'app? Quins temes hi falten?</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card" style="margin-top:18px">
+          <h3>Resposta ràpida</h3>
+          <p style="margin-bottom:0">La majoria de preguntes ja són respostes a la nostra <a href="index.html#faq" style="color:var(--gold-2)">secció de preguntes freqüents</a>. Fes-hi un cop d'ull abans, potser estalvies temps!</p>
+        </div>
+      </aside>
+
+      <div class="reveal">
+        <div class="form-card">
+          <h3>Envia'ns un missatge</h3>
+          <p class="sub">Tots els camps marcats amb <span style="color:var(--gold-2)">*</span> són obligatoris.</p>
+
+          <div id="form-feedback" class="form-feedback"></div>
+
+          <form id="contact-form" action="https://formsubmit.co/ajax/bmNhbGJldDFAeHRlYy5jYXQ=" method="POST">
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="AprènCatalà — Nou missatge de contacte">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://aprencatala.cat/contacte.html?ok=1">
+            <!-- Honeypot anti-spam -->
+            <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+
+            <div class="row-2">
+              <div class="field">
+                <label for="nom">Nom <span class="req">*</span></label>
+                <input type="text" id="nom" name="Nom" required autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="correu">Correu electrònic <span class="req">*</span></label>
+                <input type="email" id="correu" name="Correu" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="motiu">Motiu</label>
+              <select id="motiu" name="Motiu">
+                <option>Dubte general</option>
+                <option>Errada en un exercici</option>
+                <option>Suggeriment o idea</option>
+                <option>Col·laboració</option>
+                <option>Altres</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="missatge">Missatge <span class="req">*</span></label>
+              <textarea id="missatge" name="Missatge" required placeholder="Explica'ns el màxim de detalls que puguis. Si es tracta d'una errada, indica el nivell i el nom de l'exercici."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center">
+              <span>Enviar missatge</span>
+              <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+
+            <p class="privacy-note">🔒 Les teves dades només s'utilitzen per respondre't. No les compartim amb tercers ni les afegim a cap llista. Consulta la <a href="privacitat.html">política de privacitat</a>.</p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div>
+      <span class="wordmark"><span class="a">Aprèn</span><span class="c">Català</span></span>
+      <div style="margin-top:6px; font-size:13px">Aprèn català, gratis, des d'on vulguis. © 2026 aprencatala.cat</div>
+    </div>
+    <div>
+      <a href="https://app.aprencatala.cat" target="_blank" rel="noopener">app.aprencatala.cat</a>
+      <a href="contacte.html">Contacte</a>
+      <a href="privacitat.html">Privacitat</a>
+      <a href="avis-legal.html">Avís legal</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target);} });
+  }, {threshold: .12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Form submission via AJAX so user stays on the page
+  const form = document.getElementById('contact-form');
+  const fb = document.getElementById('form-feedback');
+
+  function showFeedback(type, msg){
+    fb.className = 'form-feedback show' + (type==='error' ? ' error' : '');
+    fb.textContent = msg;
+    fb.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>Enviant…</span>';
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method:'POST',
+        body: data,
+        headers:{'Accept':'application/json'}
+      });
+      if(res.ok){
+        showFeedback('ok', '✓ Missatge enviat. Et respondrem aviat. Gràcies!');
+        form.reset();
+      } else {
+        throw new Error('Resposta no satisfactòria del servidor.');
+      }
+    } catch(err){
+      showFeedback('error', 'Hi ha hagut un problema enviant el missatge. Prova-ho d\'aquí a uns minuts.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  });
+
+  // Show "ok" feedback if redirected back from formsubmit
+  if(new URLSearchParams(location.search).get('ok')==='1'){
+    showFeedback('ok','✓ Missatge enviat. Et respondrem aviat. Gràcies!');
+  }
+</script>
+
+</body>
+</html>
