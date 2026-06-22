@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eliminar el compte — AprènCatalà</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/pages.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="wordmark" href="Landing.html"><span class="a">Aprèn</span><span class="c">Català</span></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="Landing.html#funcionalitats">Funcionalitats</a>
+      <a href="Landing.html#captures">L'app</a>
+      <a href="Landing.html#per-a-qui">Per a qui</a>
+      <a href="Landing.html#faq">Preguntes</a>
+      <a class="nav-cta" href="https://app.aprencatala.cat">Comença ara</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="container reveal">
+    <div class="crumb"><a href="Landing.html">Inici</a> <span>›</span> <span>Eliminar el compte</span></div>
+    <div class="page-eyebrow">El teu compte</div>
+    <h1 class="page-title">Eliminar el <em>compte</em> i les dades</h1>
+    <p class="page-lede">Pots eliminar el teu compte d'AprènCatalà i totes les dades associades quan vulguis. Aquí t'expliquem com fer-ho des de l'app i com sol·licitar-ho si no hi tens accés.</p>
+  </div>
+</section>
+
+<section class="page-body">
+  <div class="container">
+    <article class="prose reveal">
+
+      <h2>Què s'elimina</h2>
+      <p>En eliminar el compte se suprimeixen de manera permanent, dels nostres sistemes (Google Firebase):</p>
+      <ul>
+        <li>El teu <b>compte d'usuari</b> (autenticació amb Google o amb correu electrònic).</li>
+        <li>El teu <b>progrés sincronitzat</b> (exercicis fets, XP, ratxa, graus de domini).</li>
+        <li>Les dades de <b>recordatoris</b> (token de notificacions i preferències d'hora i freqüència).</li>
+      </ul>
+      <p>Aquesta acció <b>no es pot desfer</b>. El progrés guardat localment al teu dispositiu no forma part del compte; el pots esborrar pel teu compte des de <i>Progrés → Reiniciar progrés</i> o desinstal·lant l'app.</p>
+
+      <h2>Opció 1 — Des de l'aplicació (recomanat)</h2>
+      <p>És la manera més ràpida i immediata:</p>
+      <ol>
+        <li>Obre AprènCatalà i ves a la pestanya <b>👤 Perfil</b>.</li>
+        <li>Baixa fins al final, sota l'apartat <b>Col·labora</b>.</li>
+        <li>Toca <b>«Esborrar el compte»</b> i confirma.</li>
+      </ol>
+      <p>El compte i les dades associades s'eliminen a l'instant.</p>
+
+      <h2>Opció 2 — Sol·licitud (si no tens accés a l'app)</h2>
+      <p>Si no pots accedir a l'aplicació, escriu-nos pel <a href="contacte.html">formulari de contacte</a> (o a <a href="mailto:privacitat@aprencatala.cat">privacitat@aprencatala.cat</a>) des de l'<b>adreça electrònica del teu compte</b>, indicant que vols eliminar-lo. Verificarem la sol·licitud i eliminarem el compte i les dades associades en un termini màxim de <b>30 dies</b>.</p>
+
+      <h2>Conservació de dades</h2>
+      <p>Un cop eliminat el compte, no conservem cap dada associada, llevat que la llei ens obligui a retenir informació mínima per motius de seguretat o compliment legal. En aquest cas, només es conservaria el temps estrictament necessari.</p>
+
+      <hr>
+      <p style="color:var(--ink-soft); font-size:14px">Per a qualsevol dubte sobre les teves dades, consulta la <a href="privacitat.html">política de privacitat</a> o escriu-nos pel <a href="contacte.html">formulari de contacte</a>.</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div>
+      <span class="wordmark"><span class="a">Aprèn</span><span class="c">Català</span></span>
+      <div style="margin-top:6px; font-size:13px">Aprèn català, gratis, des d'on vulguis. © 2026 aprencatala.cat</div>
+    </div>
+    <div>
+      <a href="https://app.aprencatala.cat">app.aprencatala.cat</a>
+      <a href="contacte.html">Contacte</a>
+      <a href="privacitat.html">Privacitat</a>
+      <a href="avis-legal.html">Avís legal</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target);} });
+  }, {threshold: .12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
