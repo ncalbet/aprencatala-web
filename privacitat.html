@@ -29,7 +29,7 @@
     <div class="crumb"><a href="Landing.html">Inici</a> <span>›</span> <span>Privacitat</span></div>
     <div class="page-eyebrow">Document legal</div>
     <h1 class="page-title">Política de <em>privacitat</em></h1>
-    <p class="page-lede">Aquest document explica de manera clara quines dades tractem, com les fem servir i quins drets tens. La nostra premissa: tractar el mínim de dades possible.</p>
+    <p class="page-lede">Aquest document explica de manera clara quines dades tractem, com les fem servir i quins drets tens. La nostra premissa: tractar el mínim de dades possible i només amb el teu consentiment.</p>
   </div>
 </section>
 
@@ -46,71 +46,105 @@
           <li><a href="#base">Base legal</a></li>
           <li><a href="#conservacio">Conservació</a></li>
           <li><a href="#tercers">Tercers</a></li>
-          <li><a href="#cookies">Galetes</a></li>
+          <li><a href="#transferencies">Transferències</a></li>
+          <li><a href="#cookies">Galetes i emmagatzematge</a></li>
+          <li><a href="#menors">Menors</a></li>
           <li><a href="#drets">Els teus drets</a></li>
           <li><a href="#canvis">Canvis</a></li>
         </ul>
       </aside>
 
       <article class="prose reveal">
-        <span class="updated"><span class="dot"></span>Última actualització: 12 de maig de 2026</span>
+        <span class="updated"><span class="dot"></span>Última actualització: 22 de juny de 2026</span>
 
         <h2 id="resum">Resum ràpid</h2>
-        <p><b>AprènCatalà és una eina gratuïta i sense registre.</b> El teu progrés d'aprenentatge es guarda <b>localment al teu dispositiu</b> (a la memòria del navegador o de l'app), no als nostres servidors. Només recollim dades personals si ens escrius pel formulari de contacte, i només per respondre't.</p>
+        <p><b>AprènCatalà és gratuïta i es pot fer servir sense compte.</b> Si no inicies sessió, el teu progrés es guarda <b>només al teu dispositiu</b> i no surt d'allà. <b>Opcionalment</b> pots crear un compte (amb Google o amb correu electrònic) per sincronitzar el progrés entre dispositius, i activar <b>recordatoris</b> per practicar. Aquestes funcions són voluntàries i, quan les uses, algunes dades es desen als serveis de <b>Google Firebase</b>. No fem servir les teves dades per a publicitat ni les venem a ningú.</p>
 
         <h2 id="responsable">1. Responsable del tractament</h2>
-        <p>El responsable del tractament de les dades personals que ens facilites a través d'aquest lloc web és l'equip d'AprènCatalà (aprencatala.cat), un projecte personal i sense ànim de lucre amb seu a Catalunya.</p>
-        <p>Per a qualsevol consulta relacionada amb privacitat, pots fer servir el <a href="contacte.html">formulari de contacte</a>.</p>
+        <p>El responsable del tractament és l'equip d'AprènCatalà (aprencatala.cat), un projecte personal i sense ànim de lucre amb seu a Catalunya.</p>
+        <p>Per a qualsevol consulta relacionada amb privacitat o per exercir els teus drets, pots fer servir el <a href="contacte.html">formulari de contacte</a>.</p>
 
         <h2 id="dades">2. Quines dades tractem</h2>
-        <h3>2.1 Dades del formulari de contacte</h3>
-        <p>Quan ens escrius pel formulari de contacte, recollim:</p>
+
+        <h3>2.1 Ús sense compte (per defecte)</h3>
+        <p>Si fas servir l'aplicació <b>sense iniciar sessió</b>, el teu progrés d'aprenentatge (exercicis fets, XP, ratxa, grau de domini, assoliments) es guarda <b>exclusivament al teu dispositiu</b> mitjançant l'emmagatzematge local del navegador o de l'app (<i>localStorage</i>). No es transmet als nostres sistemes i no hi podem accedir. Si esborres les dades del navegador o desinstal·les l'app, aquesta informació es perd.</p>
+
+        <h3>2.2 Compte d'usuari (opcional)</h3>
+        <p>Si decideixes <b>crear un compte o iniciar sessió</b> per sincronitzar el progrés, el tractament el gestiona <b>Firebase Authentication</b> (un servei de Google) i es processen:</p>
         <ul>
-          <li><b>Nom</b> (per poder dirigir-nos a tu).</li>
-          <li><b>Adreça electrònica</b> (per poder respondre't).</li>
-          <li><b>Motiu i contingut del missatge</b> (per atendre la consulta).</li>
+          <li>La teva <b>adreça electrònica</b>.</li>
+          <li>Si entres amb <b>Google</b>, les dades bàsiques del teu compte de Google que Google ens comparteix en autenticar-te (nom i adreça electrònica del compte).</li>
+          <li>Un <b>identificador d'usuari</b> únic que genera Firebase per associar-hi el teu progrés.</li>
         </ul>
+        <p>Iniciar sessió és sempre voluntari: pots continuar fent servir l'app sense compte.</p>
 
-        <h3>2.2 Dades del teu aprenentatge</h3>
-        <p>El teu progrés (exercicis fets, XP, ratxa, dominis) es guarda <b>exclusivament al teu dispositiu</b> mitjançant l'emmagatzematge local del navegador (<i>localStorage</i>) o de l'app. <b>No es transmet als nostres servidors</b> i no podem accedir-hi. Si esborres les dades del navegador o desinstal·les l'app, aquesta informació es perd.</p>
+        <h3>2.3 Sincronització del progrés (opcional, amb compte)</h3>
+        <p>Si tens la sessió iniciada, el teu <b>progrés d'aprenentatge</b> (exercicis fets, XP, ratxa, dominis) es desa a <b>Cloud Firestore</b> (Google), associat al teu identificador d'usuari, perquè el puguis recuperar i sincronitzar entre dispositius. No desem el teu nom ni cap àlies als nostres sistemes.</p>
 
-        <h3>2.3 Dades tècniques</h3>
-        <p>El servidor web pot registrar de manera temporal informació tècnica habitual (adreça IP, navegador, hora d'accés) per garantir la seguretat i el bon funcionament del servei. Aquests registres es conserven el temps mínim imprescindible.</p>
+        <h3>2.4 Recordatoris i notificacions (opcional, requereix activació)</h3>
+        <p>Si <b>actives els recordatoris</b>, demanem el teu permís al navegador i, si l'atorgues, desem a Cloud Firestore un <b>identificador tècnic del dispositiu</b> (token de notificacions push) i les teves <b>preferències</b> (hora i freqüència). Aquestes dades serveixen únicament per enviar-te recordatoris de pràctica a través de <b>Firebase Cloud Messaging</b> (Google). Pots <b>desactivar-los</b> en qualsevol moment des de Perfil → Recordatoris; en fer-ho, deixem d'enviar-te'n.</p>
+
+        <h3>2.5 Formulari de contacte</h3>
+        <p>Quan ens escrius pel formulari de contacte recollim el teu <b>nom</b>, la teva <b>adreça electrònica</b> i el <b>contingut del missatge</b>, només per poder atendre la teva consulta.</p>
+
+        <h3>2.6 Dades tècniques</h3>
+        <p>Els servidors que allotgen el lloc i els serveis (inclosos els de Google Firebase) poden registrar de manera temporal informació tècnica habitual (adreça IP, tipus de navegador, hora d'accés) per garantir la seguretat i el bon funcionament del servei.</p>
 
         <h2 id="finalitats">3. Per a què tractem les teves dades</h2>
         <ul>
+          <li>Permetre't <b>crear un compte</b> i <b>sincronitzar</b> el teu progrés entre dispositius.</li>
+          <li>Enviar-te <b>recordatoris</b> de pràctica, si els actives.</li>
           <li>Respondre les consultes que ens fas pel formulari de contacte.</li>
-          <li>Garantir la seguretat i el bon funcionament del lloc.</li>
+          <li>Garantir la seguretat i el bon funcionament del servei.</li>
           <li>Complir les obligacions legals que ens corresponguin.</li>
         </ul>
         <p>No fem servir les teves dades per a publicitat, perfilat ni les venem a tercers. Mai.</p>
 
         <h2 id="base">4. Base legal</h2>
-        <p>El tractament de les dades que ens facilites pel formulari de contacte es basa en el teu <b>consentiment exprés</b>, atorgat en enviar el missatge. El tractament de dades tècniques del servidor es basa en l'<b>interès legítim</b> de mantenir el servei segur i operatiu.</p>
+        <ul>
+          <li><b>Consentiment exprés</b> (art. 6.1.a RGPD): creació de compte, sincronització del progrés, enviament de recordatoris i enviament del formulari de contacte. Pots retirar el consentiment en qualsevol moment (tancant la sessió, desactivant els recordatoris o demanant la supressió).</li>
+          <li><b>Interès legítim</b> (art. 6.1.f RGPD): tractament de dades tècniques per mantenir el servei segur i operatiu.</li>
+        </ul>
 
         <h2 id="conservacio">5. Quant de temps conservem les dades</h2>
-        <p>Conservem els missatges del formulari de contacte el temps necessari per atendre la consulta i, posteriorment, durant un període raonable per donar continuïtat a la conversa si fos necessari (fins a un màxim de 12 mesos). Després s'eliminen.</p>
-        <p>Les dades tècniques del servidor es conserven un màxim de 30 dies.</p>
+        <ul>
+          <li><b>Compte i progrés sincronitzat:</b> es conserven mentre el compte estigui actiu. Si demanes la supressió del compte, eliminem el teu document de progrés i les dades associades.</li>
+          <li><b>Dades de recordatoris</b> (token i preferències): es conserven mentre els tinguis activats; en desactivar-los deixen de fer-se servir i s'eliminen o queden inutilitzades.</li>
+          <li><b>Missatges del formulari de contacte:</b> fins a un màxim de 12 mesos.</li>
+          <li><b>Dades tècniques:</b> un màxim de 30 dies.</li>
+        </ul>
 
-        <h2 id="tercers">6. Cessió de dades a tercers</h2>
-        <p>No cedim les teves dades a tercers, llevat d'obligació legal. Els missatges del formulari de contacte es gestionen a través del proveïdor <b>FormSubmit</b> (formsubmit.co), que actua com a encarregat del tractament i ens permet rebre els correus al nostre buzón sense exposar l'adreça pública. FormSubmit pot processar dades fora de la UE; en aquest cas s'apliquen les clàusules contractuals tipus de la Comissió Europea.</p>
+        <h2 id="tercers">6. Serveis de tercers i encarregats del tractament</h2>
+        <ul>
+          <li><b>Google Firebase</b> (Authentication, Cloud Firestore i Cloud Messaging): proporcionen l'autenticació, la sincronització del progrés i l'enviament de notificacions. Actua com a encarregat del tractament. Consulta la <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">privacitat de Firebase</a> i la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de Google</a>.</li>
+          <li><b>Google Fonts</b> (fonts.googleapis.com): es carreguen tipografies des dels servidors de Google, que en rep l'adreça IP.</li>
+          <li><b>FormSubmit</b> (formsubmit.co): gestiona l'enviament dels missatges del formulari de contacte sense exposar l'adreça pública.</li>
+          <li><b>Ko-fi</b> (ko-fi.com): enllaç opcional per a donacions voluntàries. Si hi accedeixes, se t'aplica la seva política.</li>
+        </ul>
+        <p>No cedim les teves dades a tercers per a finalitats pròpies d'aquests, llevat d'obligació legal.</p>
 
-        <h2 id="cookies">7. Galetes (cookies)</h2>
-        <p>El lloc web no fa servir galetes de seguiment ni de publicitat. L'aplicació pot utilitzar emmagatzematge local del navegador per guardar el teu progrés d'aprenentatge i les preferències (vegeu el punt 2.2), però això no és una galeta i no es transmet enlloc.</p>
+        <h2 id="transferencies">7. Transferències internacionals</h2>
+        <p>Alguns d'aquests proveïdors (Google Firebase, Google Fonts, FormSubmit) poden tractar dades en servidors situats <b>fora de l'Espai Econòmic Europeu</b>. En aquests casos, la transferència es fa a l'empara de les <b>clàusules contractuals tipus</b> de la Comissió Europea o d'altres garanties adequades que preveu el RGPD.</p>
 
-        <h2 id="drets">8. Els teus drets</h2>
+        <h2 id="cookies">8. Galetes i emmagatzematge local</h2>
+        <p>El lloc no fa servir galetes de seguiment ni de publicitat. L'aplicació utilitza l'<b>emmagatzematge local</b> del navegador (localStorage / IndexedDB) per guardar el teu progrés i les preferències i, si inicies sessió, per mantenir la sessió oberta de manera segura (Firebase Authentication). Aquesta informació no es comparteix amb finalitats publicitàries.</p>
+
+        <h2 id="menors">9. Menors d'edat</h2>
+        <p>L'aplicació està pensada per a un públic adult i no s'adreça específicament a menors de 14 anys. No demanem deliberadament dades de menors. Si ets pare, mare o tutor/a i creus que un menor ens ha facilitat dades sense consentiment, contacta'ns i les eliminarem.</p>
+
+        <h2 id="drets">10. Els teus drets</h2>
         <p>D'acord amb el Reglament General de Protecció de Dades (RGPD) i la LOPDGDD, tens dret a:</p>
         <ul>
-          <li><b>Accés:</b> saber quines dades teves tenim.</li>
+          <li><b>Accés:</b> saber quines dades teves tractem.</li>
           <li><b>Rectificació:</b> corregir dades inexactes.</li>
-          <li><b>Supressió:</b> demanar que esborrem les teves dades.</li>
+          <li><b>Supressió:</b> demanar que esborrem el teu compte i les dades associades.</li>
           <li><b>Oposició</b> i <b>limitació</b> del tractament.</li>
           <li><b>Portabilitat</b> de les dades.</li>
           <li><b>Retirar el consentiment</b> en qualsevol moment.</li>
         </ul>
-        <p>Pots exercir aquests drets escrivint-nos pel <a href="contacte.html">formulari de contacte</a>. També tens dret a presentar una reclamació davant l'<b>Autoritat Catalana de Protecció de Dades</b> (apdcat.gencat.cat) si consideres que els teus drets no s'han atès correctament.</p>
+        <p>Pots exercir aquests drets escrivint-nos pel <a href="contacte.html">formulari de contacte</a>. També pots tancar la sessió o desactivar els recordatoris directament des de l'app. Tens dret a presentar una reclamació davant l'<b>Autoritat Catalana de Protecció de Dades</b> (apdcat.gencat.cat) si consideres que els teus drets no s'han atès correctament.</p>
 
-        <h2 id="canvis">9. Canvis en aquesta política</h2>
+        <h2 id="canvis">11. Canvis en aquesta política</h2>
         <p>Podem actualitzar aquesta política per reflectir canvis legals o de funcionament. Publicarem qualsevol canvi en aquesta mateixa pàgina amb la data d'actualització. T'aconsellem revisar-la periòdicament.</p>
 
         <hr>
