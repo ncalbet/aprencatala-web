@@ -1,0 +1,47 @@
+name: Resum setmanal de visites
+
+# Envia per correu el resum de Cloudflare Web Analytics dels últims 7 dies.
+#
+# Per què tres oportunitats i no una: GitHub descarta bona part de les
+# execucions programades quan hi ha cua, i amb un sol cron setmanal es poden
+# perdre setmanes senceres sense avisar. Amb tres intents el dilluns, l'script
+# comprova l'historial del workflow i plega si ja n'ha sortit un fa menys de
+# 6 dies → arriba un sol correu. La finestra és mòbil de 7 dies, així que un
+# retard no falseja les xifres.
+on:
+  schedule:
+    - cron: '13 6 * * 1'
+    - cron: '13 10 * * 1'
+    - cron: '13 15 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: resum-analitiques
+  cancel-in-progress: false
+
+permissions:
+  actions: read      # per llegir l'historial del propi workflow (guarda anti-duplicat)
+  contents: read
+
+jobs:
+  resum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Instal·la dependències
+        run: npm ci
+        working-directory: scripts
+      - name: Consulta i envia
+        run: node resum_analitiques.cjs
+        working-directory: scripts
+        env:
+          CF_API_TOKEN:  ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_SITE_TAG:   ${{ secrets.CF_SITE_TAG }}
+          SMTP_USER:     ${{ secrets.SMTP_USER }}
+          SMTP_PASS:     ${{ secrets.SMTP_PASS }}
+          MAIL_TO:       ${{ secrets.MAIL_TO }}
+          GITHUB_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
