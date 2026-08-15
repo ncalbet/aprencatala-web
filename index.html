@@ -531,6 +531,12 @@
   .feature.gold .ico{background:linear-gradient(135deg, var(--gold), var(--gold-2)); color:var(--navy); box-shadow:0 8px 20px -8px rgba(245,158,11,.6)}
   .feature.green .ico{background:linear-gradient(135deg, var(--green), var(--green-deep)); color:#fff; box-shadow:0 8px 20px -8px rgba(22,163,74,.5)}
   .feature.cream .ico{background:#fff; color:var(--navy); border:1.5px solid var(--line); box-shadow:0 4px 12px -2px rgba(26,47,78,.1)}
+  /* La graella queda exactament plena amb 5 targetes (la gran ocupa dues files).
+     La sisena ha d'ocupar una fila sencera o deixaria dos buits al costat.
+     Que sigui la del mòdul IEC encaixa: és el mòdul transversal, el que
+     travessa tots els nivells. Funciona als tres punts de ruptura perquè
+     «1 / -1» s'adapta a les columnes que hi hagi (3, 2 o 1). */
+  .feature.wide{grid-column:1 / -1}
   .feature h3{
     font-family:"Libre Caslon Text", Georgia, serif;
     font-size:22px; margin:0; color:var(--navy); line-height:1.15;
@@ -1253,6 +1259,14 @@
         <h3>Sense registre</h3>
         <p>Obre el navegador, escull un nivell i comença. El teu progrés es guarda al teu dispositiu.</p>
       </div>
+
+      <div class="feature wide reveal">
+        <div class="ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Novetats de l'IEC (2016)</h3>
+        <p>Mòdul transversal, fora dels nivells: els diacrítics que han caigut i els que queden, guionets, prefixos i pronoms febles. Per a qui va estudiar amb la normativa antiga i vol posar-se al dia.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1544,6 +1558,11 @@
         <details class="faq-item">
           <summary>Serveix per preparar els exàmens oficials de la Generalitat?</summary>
           <p class="a">Sí. Els nivells <b>A2, B1, B2 i C1</b> estan alineats amb el marc oficial i els temaris que avaluen les proves. Practicaràs gramàtica, lèxic, comprensió i ús real, en formats similars als de l'examen.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Cobreix la reforma ortogràfica de l'IEC del 2016?</summary>
+          <p class="a">Sí, amb un mòdul propi: <b>«Novetats IEC»</b>, 36 exercicis dedicats només a això —els diacrítics que han caigut i els que queden, els guionets dels compostos, els prefixos, l'ortografia dels pronoms febles i els mites més estesos. És transversal: el pots fer estiguis al nivell que estiguis.</p>
         </details>
 
         <details class="faq-item">
