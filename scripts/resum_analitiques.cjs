@@ -162,7 +162,11 @@ async function jaEnviatAquestaSetmana() {
   const { GITHUB_TOKEN, GITHUB_REPOSITORY, GITHUB_RUN_ID, GITHUB_WORKFLOW_REF } = process.env;
   if (!GITHUB_TOKEN || !GITHUB_REPOSITORY) return false; // execució local: no hi ha guarda
 
-  const fitxer = (GITHUB_WORKFLOW_REF || '').split('/').pop().split('@')[0];
+  // L'ordre importa: GITHUB_WORKFLOW_REF és «owner/repo/.github/workflows/
+  // fitxer.yml@refs/heads/main». Retallant primer per «/» en surt «main», no
+  // el nom del fitxer, i la consulta d'historial dona 404 → la guarda quedava
+  // oberta sempre i els tres crons del dilluns haurien enviat tres correus.
+  const fitxer = (GITHUB_WORKFLOW_REF || '').split('@')[0].split('/').pop();
   const url = `https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/${fitxer}/runs`
             + `?status=success&per_page=20`;
   try {
