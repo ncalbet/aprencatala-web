@@ -90,6 +90,40 @@ async function totals(desDe, finsA) {
   return { visites: files[0].sum?.visits ?? 0, pagines: files[0].count ?? 0 };
 }
 
+// Quins siteTag tenen visites de debò, preguntat al mateix conjunt de dades.
+// L'endpoint REST rum/site_info/list demana un permís que el token no té (403),
+// però «siteTag» també és una DIMENSIÓ d'aquest dataset: agrupant-hi sense
+// filtrar-lo, surten els valors vàlids sense necessitat de cap permís nou.
+async function tagsAmbVisites() {
+  const q = `
+    query($tag:String!, $desDe:Date!, $finsA:Date!) {
+      viewer {
+        accounts(filter: {accountTag: $tag}) {
+          rumPageloadEventsAdaptiveGroups(
+            limit: 20
+            filter: {date_geq: $desDe, date_lt: $finsA}
+            orderBy: [sum_visits_DESC]
+          ) {
+            sum { visits }
+            dimensions { siteTag }
+          }
+        }
+      }
+    }`;
+  try {
+    const d = await graphql(q, {
+      tag: process.env.CF_ACCOUNT_ID, desDe: INICI_PREVI, finsA: AVUI
+    });
+    const files = d.viewer?.accounts?.[0]?.rumPageloadEventsAdaptiveGroups || [];
+    console.log(`siteTag amb visites entre ${INICI_PREVI} i ${AVUI}: ${files.length}`);
+    for (const f of files) {
+      console.log(`  · siteTag=${f.dimensions.siteTag} → ${f.sum.visits} visites`);
+    }
+  } catch (e) {
+    console.warn(`[avís] no s'han pogut agrupar els siteTag: ${e.message}`);
+  }
+}
+
 // ── Quins llocs veu el token ─────────────────────────────────────────────────
 // Cloudflare té DOS identificadors per a un lloc de Web Analytics: el token del
 // beacon (el que surt al snippet de l'HTML) i el «site_tag» que fa servir
@@ -219,6 +253,7 @@ async function run() {
   // Va abans de la guarda a posta: si plega per duplicat, el registre ha de
   // dur igualment el diagnòstic del lloc, que és el que costa d'aconseguir.
   await comprovaLloc();
+  await tagsAmbVisites();
 
   if (await jaEnviatAquestaSetmana()) {
     console.log('Ja s\'ha enviat un resum fa menys de 6 dies. No se n\'envia cap altre.');
