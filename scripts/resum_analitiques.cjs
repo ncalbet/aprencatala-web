@@ -70,8 +70,62 @@ async function totals(desDe, finsA) {
     tag: process.env.CF_ACCOUNT_ID, site: process.env.CF_SITE_TAG,
     desDe, finsA
   });
-  const fila = d.viewer.accounts[0]?.rumPageloadEventsAdaptiveGroups[0];
-  return { visites: fila?.sum?.visits ?? 0, pagines: fila?.count ?? 0 };
+  // Sense això, tres causes ben diferents donaven totes «0 visites»: que el
+  // token no vegi el compte, que el siteTag no casi amb cap lloc, i que de
+  // debò no hi hagi hagut visites. Un zero que no distingeix res no informa.
+  const comptes = d.viewer?.accounts;
+  if (!Array.isArray(comptes) || comptes.length === 0) {
+    throw new Error(
+      `El token no veu el compte ${process.env.CF_ACCOUNT_ID}: «viewer.accounts» ha tornat buit. `
+      + 'Comprova que tingui el permís «Account Analytics: Read» sobre aquest compte.');
+  }
+
+  const files = comptes[0].rumPageloadEventsAdaptiveGroups;
+  if (!files || files.length === 0) {
+    console.warn(`[avís] cap fila per a ${desDe} → ${finsA}: el compte resol, però el `
+               + 'filtre per siteTag no casa amb res. Mira la llista de llocs de més amunt.');
+    return { visites: 0, pagines: 0 };
+  }
+
+  return { visites: files[0].sum?.visits ?? 0, pagines: files[0].count ?? 0 };
+}
+
+// ── Quins llocs veu el token ─────────────────────────────────────────────────
+// Cloudflare té DOS identificadors per a un lloc de Web Analytics: el token del
+// beacon (el que surt al snippet de l'HTML) i el «site_tag» que fa servir
+// l'API, i el panell no ensenya mai el segon. Si li passem el primer, la
+// consulta filtra per un valor inexistent i torna zero files SENSE error.
+// Això ho diu en veu alta en comptes de deixar-ho passar per «no hi ha visites».
+async function comprovaLloc() {
+  const url = `https://api.cloudflare.com/client/v4/accounts/${process.env.CF_ACCOUNT_ID}`
+            + '/rum/site_info/list';
+  let cos;
+  try {
+    const r = await fetch(url, { headers: { 'Authorization': `Bearer ${process.env.CF_API_TOKEN}` } });
+    cos = await r.json();
+    if (!r.ok || !cos.success) {
+      console.warn(`[avís] no s'han pogut llistar els llocs (HTTP ${r.status}): `
+                 + JSON.stringify(cos.errors || cos).slice(0, 300));
+      return;
+    }
+  } catch (e) {
+    console.warn(`[avís] no s'han pogut llistar els llocs: ${e.message}`);
+    return;
+  }
+
+  const llocs = cos.result || [];
+  console.log(`Llocs de Web Analytics que veu aquest token: ${llocs.length}`);
+  for (const s of llocs) {
+    console.log(`  · ${s.host || '(sense host)'} | site_tag=${s.site_tag} | ruleset=${s.ruleset?.id || '—'}`);
+  }
+  // El valor de CF_SITE_TAG surt emmascarat al registre d'Actions, així que la
+  // comparació s'ha de fer aquí i publicar-ne el veredicte, no el valor.
+  if (llocs.some(s => s.site_tag === process.env.CF_SITE_TAG)) {
+    console.log('CF_SITE_TAG coincideix amb un site_tag de la llista. ✔');
+  } else {
+    console.warn('[avís] CF_SITE_TAG NO és cap dels site_tag de la llista: '
+               + 'és el candidat número u de les xifres a zero.');
+  }
 }
 
 // Desglossament per una dimensió. Tolerant a propòsit: si un nom de camp no
@@ -161,6 +215,10 @@ async function run() {
   for (const v of ['CF_API_TOKEN', 'CF_ACCOUNT_ID', 'CF_SITE_TAG', 'SMTP_USER', 'SMTP_PASS', 'MAIL_TO']) {
     if (!process.env[v]) throw new Error(`Falta la variable d'entorn ${v}`);
   }
+
+  // Va abans de la guarda a posta: si plega per duplicat, el registre ha de
+  // dur igualment el diagnòstic del lloc, que és el que costa d'aconseguir.
+  await comprovaLloc();
 
   if (await jaEnviatAquestaSetmana()) {
     console.log('Ja s\'ha enviat un resum fa menys de 6 dies. No se n\'envia cap altre.');
