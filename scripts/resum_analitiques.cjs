@@ -56,9 +56,16 @@ async function graphql(query, variables) {
   return cos.data;
 }
 
+// ⚠️ `sampleInterval` no és decoratiu: Cloudflare MOSTREJA. Desa 1 esdeveniment de
+// cada N i et torna el recompte dels que ha desat, no el real. Sense multiplicar-hi,
+// les xifres surten N vegades més petites del que toca i no ho diu enlloc.
+// Afegit el 2026-09-03, quan es va veure que el mateix script del blog Mesa Docente
+// sí que ho ponderava i aquest no: allà N valia 10. Aquí es registra al log a cada
+// execució (vegeu run()) perquè es vegi quant val de debò en aquest lloc.
 const CAMPS_TOTALS = `
   sum { visits }
-  count`;
+  count
+  avg { sampleInterval }`;
 
 // Totals del període: una fila agregada.
 async function totals(desDe, finsA) {
@@ -94,7 +101,16 @@ async function totals(desDe, finsA) {
     return { visites: 0, pagines: 0 };
   }
 
-  return { visites: files[0].sum?.visits ?? 0, pagines: files[0].count ?? 0 };
+  // Desfà el mostreig. Si Cloudflare no mostreja aquest lloc, `sampleInterval` val 1
+  // i multiplicar-hi no canvia res: el pedaç és correcte tant si mostreja com si no,
+  // i s'adapta sol si algun dia canvia el factor perquè creix el trànsit.
+  const fila = files[0];
+  const factor = fila.avg?.sampleInterval ?? 1;
+  return {
+    visites: Math.round((fila.sum?.visits ?? 0) * factor),
+    pagines: Math.round((fila.count ?? 0) * factor),
+    factor
+  };
 }
 
 // Desglossament per una dimensió. Tolerant a propòsit: si un nom de camp no
@@ -111,6 +127,7 @@ async function desglossat(dimensio, limit = 8) {
             orderBy: [sum_visits_DESC]
           ) {
             sum { visits }
+            avg { sampleInterval }
             dimensions { ${dimensio} }
           }
         }
@@ -122,7 +139,11 @@ async function desglossat(dimensio, limit = 8) {
       desDe: INICI, finsA: AVUI
     });
     return d.viewer.accounts[0].rumPageloadEventsAdaptiveGroups
-      .map(f => ({ clau: f.dimensions[dimensio], visites: f.sum.visits }))
+      // Ponderat igual que els totals; si no, les taules no sumarien el total de dalt.
+      .map(f => ({
+        clau: f.dimensions[dimensio],
+        visites: Math.round(f.sum.visits * (f.avg?.sampleInterval ?? 1))
+      }))
       .filter(f => f.clau !== null && f.clau !== '');
   } catch (e) {
     console.warn(`[avís] el desglossament per «${dimensio}» ha fallat: ${e.message}`);
@@ -197,6 +218,13 @@ async function run() {
   const ara = await totals(INICI, AVUI);
   const abans = await totals(INICI_PREVI, INICI);
   console.log(`Període ${INICI} → ${AVUI}: ${ara.visites} visites, ${ara.pagines} pàgines vistes.`);
+  // Autodiagnòstic: deixa escrit al registre del workflow quant mostreja Cloudflare
+  // aquest lloc. Amb factor 1 les xifres d'abans del 2026-09-03 eren correctes; amb
+  // factor N, eren N vegades massa baixes.
+  console.log(ara.factor === 1
+    ? 'Mostreig de Cloudflare: cap (sampleInterval = 1). Les xifres són recomptes directes.'
+    : `Mostreig de Cloudflare: 1 de cada ${ara.factor} (sampleInterval = ${ara.factor}). `
+      + 'Les xifres van ponderades per aquest factor: són estimacions, no recomptes exactes.');
 
   const [pagines, referents, paisos, dispositius] = await Promise.all([
     desglossat('requestPath'), desglossat('refererHost'),
@@ -228,7 +256,9 @@ async function run() {
       <p style="color:#888;font-size:12px;margin-top:20px">
         Font: Cloudflare Web Analytics. Les xifres són una cota inferior: els
         bloquejadors de publicitat filtren el comptador. No inclou l'app, que no
-        en porta cap.
+        en porta cap.${ara.factor === 1 ? '' : `
+        Cloudflare només desa 1 de cada ${ara.factor} visites i aquestes xifres van
+        ponderades per recompondre el total: són estimacions, no un recompte exacte.`}
       </p>
     </div>`;
 
