@@ -56,12 +56,19 @@ async function graphql(query, variables) {
   return cos.data;
 }
 
-// ⚠️ `sampleInterval` no és decoratiu: Cloudflare MOSTREJA. Desa 1 esdeveniment de
-// cada N i et torna el recompte dels que ha desat, no el real. Sense multiplicar-hi,
-// les xifres surten N vegades més petites del que toca i no ho diu enlloc.
-// Afegit el 2026-09-03, quan es va veure que el mateix script del blog Mesa Docente
-// sí que ho ponderava i aquest no: allà N valia 10. Aquí es registra al log a cada
-// execució (vegeu run()) perquè es vegi quant val de debò en aquest lloc.
+// ⚠️ `count` i `sum { visits }` JA VENEN PONDERATS pel mostreig. NO els multipliquis
+// per `sampleInterval`.
+//
+// El 2026-09-03 vaig fer precisament això, perquè el script bessó del blog Mesa Docente
+// ho feia i vaig donar per bo que aquell tenia raó. Al revés: aquest era el correcte i
+// aquell inflava les xifres ×10 (l'agost del blog deia 500 visites i eren 50).
+// Desfet el 2026-09-04 després de comprovar-ho per tres vies: el panell de Cloudflare
+// coincideix amb la consulta sense multiplicar; totes les files d'un mes mostrejat
+// surten múltiples exactes del factor; i un dia sencer d'esdeveniments cau dins d'una
+// sola hora, cosa que només passa si són un registre expandit.
+//
+// `sampleInterval` sí que es demana, però com a mesura de CONFIANÇA: dividint-hi surt
+// quantes mesures de debò hi ha darrere de la xifra.
 const CAMPS_TOTALS = `
   sum { visits }
   count
@@ -100,18 +107,19 @@ async function totals(desDe, finsA) {
                + 'filtre per siteTag no casa amb res. Revisa CF_SITE_TAG: vegeu la capçalera.');
     // `factor: 1` no és decoratiu: sense ell, aquesta sortida primerenca deixa
     // `factor` a undefined i el correu acaba dient «1 de cada undefined visites».
-    return { visites: 0, pagines: 0, factor: 1 };
+    return { visites: 0, pagines: 0, factor: 1, mesures: 0 };
   }
 
-  // Desfà el mostreig. Si Cloudflare no mostreja aquest lloc, `sampleInterval` val 1
-  // i multiplicar-hi no canvia res: el pedaç és correcte tant si mostreja com si no,
-  // i s'adapta sol si algun dia canvia el factor perquè creix el trànsit.
+  // Tal com arriba: la ponderació ja la fa Cloudflare. `factor` només serveix per dir
+  // sobre quantes mesures s'ha construït la xifra.
   const fila = files[0];
   const factor = fila.avg?.sampleInterval ?? 1;
+  const pagines = fila.count ?? 0;
   return {
-    visites: Math.round((fila.sum?.visits ?? 0) * factor),
-    pagines: Math.round((fila.count ?? 0) * factor),
-    factor
+    visites: fila.sum?.visits ?? 0,
+    pagines,
+    factor,
+    mesures: Math.round(pagines / factor)
   };
 }
 
@@ -141,11 +149,7 @@ async function desglossat(dimensio, limit = 8) {
       desDe: INICI, finsA: AVUI
     });
     return d.viewer.accounts[0].rumPageloadEventsAdaptiveGroups
-      // Ponderat igual que els totals; si no, les taules no sumarien el total de dalt.
-      .map(f => ({
-        clau: f.dimensions[dimensio],
-        visites: Math.round(f.sum.visits * (f.avg?.sampleInterval ?? 1))
-      }))
+      .map(f => ({ clau: f.dimensions[dimensio], visites: f.sum.visits }))
       .filter(f => f.clau !== null && f.clau !== '');
   } catch (e) {
     console.warn(`[avís] el desglossament per «${dimensio}» ha fallat: ${e.message}`);
@@ -221,12 +225,11 @@ async function run() {
   const abans = await totals(INICI_PREVI, INICI);
   console.log(`Període ${INICI} → ${AVUI}: ${ara.visites} visites, ${ara.pagines} pàgines vistes.`);
   // Autodiagnòstic: deixa escrit al registre del workflow quant mostreja Cloudflare
-  // aquest lloc. Amb factor 1 les xifres d'abans del 2026-09-03 eren correctes; amb
-  // factor N, eren N vegades massa baixes.
+  // aquest lloc, i sobre quantes mesures s'ha construït la xifra de dalt.
   console.log(ara.factor === 1
     ? 'Mostreig de Cloudflare: cap (sampleInterval = 1). Les xifres són recomptes directes.'
-    : `Mostreig de Cloudflare: 1 de cada ${ara.factor} (sampleInterval = ${ara.factor}). `
-      + 'Les xifres van ponderades per aquest factor: són estimacions, no recomptes exactes.');
+    : `Mostreig de Cloudflare: 1 de cada ${ara.factor}. La xifra de dalt és una `
+      + `extrapolació SEVA a partir de ${ara.mesures} mesures; no la multipliquem nosaltres.`);
 
   const [pagines, referents, paisos, dispositius] = await Promise.all([
     desglossat('requestPath'), desglossat('refererHost'),
@@ -259,8 +262,9 @@ async function run() {
         Font: Cloudflare Web Analytics. Les xifres són una cota inferior: els
         bloquejadors de publicitat filtren el comptador. No inclou l'app, que no
         en porta cap.${ara.factor === 1 ? '' : `
-        Cloudflare només desa 1 de cada ${ara.factor} visites i aquestes xifres van
-        ponderades per recompondre el total: són estimacions, no un recompte exacte.`}
+        <br><b>Compte amb el número:</b> Cloudflare només en desa 1 de cada ${ara.factor},
+        i aquesta xifra és una extrapolació seva a partir de <b>${ara.mesures} mesures</b>.
+        Fia-te'n de l'ordre de magnitud, no del número exacte.`}
       </p>
     </div>`;
 
