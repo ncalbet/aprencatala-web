@@ -98,7 +98,9 @@ async function totals(desDe, finsA) {
   if (!files || files.length === 0) {
     console.warn(`[avís] cap fila per a ${desDe} → ${finsA}: el compte resol, però el `
                + 'filtre per siteTag no casa amb res. Revisa CF_SITE_TAG: vegeu la capçalera.');
-    return { visites: 0, pagines: 0 };
+    // `factor: 1` no és decoratiu: sense ell, aquesta sortida primerenca deixa
+    // `factor` a undefined i el correu acaba dient «1 de cada undefined visites».
+    return { visites: 0, pagines: 0, factor: 1 };
   }
 
   // Desfà el mostreig. Si Cloudflare no mostreja aquest lloc, `sampleInterval` val 1
