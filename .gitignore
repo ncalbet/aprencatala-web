@@ -1,1 +1,38 @@
+# LLISTA BLANCA (24/09/2026). Aquest repo és PÚBLIC: qualsevol el pot clonar i llegir-ne
+# tot l'historial, fitxers esborrats inclosos. S'ignora tot i només hi entra el que es
+# nomena aquí: un fitxer que caigui a la carpeta per error (un PDF, unes notes, una clau)
+# no pujarà sol. Per afegir una pàgina o una imatge nova, cal nomenar-la a sota.
+# guarda_push.cjs bloqueja el push si hi ha cap fitxer seguit fora de la llista o si un
+# commit porta un correu que no sigui el «noreply» de GitHub.
+# ⚠️ Les pujades des de la web de GitHub NO respecten aquest fitxer: no se n'ha de fer cap.
+/*
+
+!/.gitignore
+!/CNAME
+!/index.html
+!/Landing.html
+!/privacitat.html
+!/avis-legal.html
+!/contacte.html
+!/eliminar-compte.html
+!/favicon.ico
+!/favicon-16.png
+!/favicon-32.png
+!/apple-touch-icon.png
+!/og-image.jpg
+!/styles/
+!/.github/
+
+# Script de l'Action: només el codi i les dependències declarades
+!/scripts/
+/scripts/*
+!/scripts/*.cjs
+!/scripts/package.json
+!/scripts/package-lock.json
+
+# MAI, encara que algú afegeixi una excepció a dalt (les regles de baix manen):
 node_modules/
+*.pdf
+*.docx
+*.keystore
+*.jks
