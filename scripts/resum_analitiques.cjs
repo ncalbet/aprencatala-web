@@ -152,7 +152,7 @@ async function desglossat(dimensio, limit = 8) {
       .map(f => ({ clau: f.dimensions[dimensio], visites: f.sum.visits }))
       .filter(f => f.clau !== null && f.clau !== '');
   } catch (e) {
-    console.warn(`[avís] el desglossament per «${dimensio}» ha fallat: ${e.message}`);
+    console.warn(`[avís] el desglossament per «${dimensio}» ha fallat: ${e.code || 'error'}`);
     return null;
   }
 }
@@ -283,7 +283,7 @@ async function run() {
         + `Període ${INICI} → ${AVUI}`
   });
 
-  console.log(`Correu enviat a ${process.env.MAIL_TO}.`);
+  console.log('Correu enviat.');
 }
 
-run().catch(e => { console.error(e.message); process.exit(1); });
+run().catch(e => { console.error(`Ha fallat: ${e.code || 'error'}`); process.exit(1); });
