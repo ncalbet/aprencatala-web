@@ -578,6 +578,8 @@
     transition: transform .2s, background .2s;
   }
   .feature.big .lvl-card:hover{transform: translateY(-2px); background:rgba(255,255,255,.1)}
+  /* Cinc nivells en dues columnes: l'A1, el punt de partida, ocupa tota la fila. */
+  .feature.big .lvl-card.wide{grid-column:1 / -1}
   .feature.big .lvl-card .l{
     font-family:"Libre Caslon Text", Georgia, serif;
     font-size:20px; color:#fff; font-weight:700;
@@ -1218,9 +1220,10 @@
         <div class="ico">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg>
         </div>
-        <h3>Quatre nivells, de l'A2 al C1.</h3>
+        <h3>Cinc nivells, de l'A1 al C1.</h3>
         <p>Estructura alineada amb els exàmens oficials de la Generalitat. Avança pas a pas o salta al nivell que necessites avui.</p>
         <div class="vis">
+          <div class="lvl-card wide"><span class="l">A1</span><span class="n">Inicial</span></div>
           <div class="lvl-card"><span class="l">A2</span><span class="n">Bàsic</span></div>
           <div class="lvl-card"><span class="l">B1</span><span class="n">Elemental</span></div>
           <div class="lvl-card"><span class="l">B2</span><span class="n">Intermedi</span></div>
