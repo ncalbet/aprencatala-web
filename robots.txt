@@ -1,0 +1,15 @@
+# Les IA poden trobar i citar aquest web (cerca), però no entrenar-se amb el seu contingut.
+# Rastrejadors d'entrenament, un per un; la resta, oberts. Google-Extended queda obert a posta:
+# bloquejar-lo també treu el web de les respostes de Gemini, no només de l'entrenament, i a
+# AprènCatalà li convé que Gemini pugui recomanar l'app (decisió del 09/11/2026).
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Applebot-Extended
+User-agent: meta-externalagent
+User-agent: CCBot
+User-agent: Bytespider
+Disallow: /
+
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
