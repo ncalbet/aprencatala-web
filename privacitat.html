@@ -60,7 +60,7 @@
       </aside>
 
       <article class="prose reveal">
-        <span class="updated"><span class="dot"></span>Última actualització: 4 de novembre de 2026</span>
+        <span class="updated"><span class="dot"></span>Última actualització: 18 de novembre de 2026</span>
 
         <h2 id="resum">Resum ràpid</h2>
         <p><b>AprènCatalà és gratuïta i es pot fer servir sense compte.</b> Si no inicies sessió, el teu progrés es guarda <b>només al teu dispositiu</b> i no surt d'allà. <b>Opcionalment</b> pots crear un compte (amb Google o amb correu electrònic) per sincronitzar el progrés entre dispositius, activar <b>recordatoris</b> per practicar i participar a la <b>Lliga AprènCatalà</b>. Aquestes funcions són voluntàries i, quan les uses, algunes dades es desen als serveis de <b>Google Firebase</b>. Fins al 17 de novembre de 2026, amb el compte també pots provar uns <b>exercicis d'expressió escrita</b> que es corregeixen amb ajuda d'IA: el text s'envia a <b>Anthropic</b>, que el corregeix, i nosaltres no el desem. No fem servir les teves dades per a publicitat ni les venem a ningú.</p>
@@ -84,7 +84,7 @@
         <p>Iniciar sessió és sempre voluntari: pots continuar fent servir l'app sense compte.</p>
 
         <h3>2.3 Sincronització del progrés (opcional, amb compte)</h3>
-        <p>Si tens la sessió iniciada, el teu <b>progrés d'aprenentatge</b> (exercicis fets, XP, ratxa, dominis) es desa a <b>Cloud Firestore</b> (Google), associat al teu identificador d'usuari, perquè el puguis recuperar i sincronitzar entre dispositius. Si tries un <b>pseudònim</b> al Perfil amb la sessió iniciada, també es desa amb el teu compte i queda reservat per a tu: ningú més no el pot fer servir.</p>
+        <p>Si tens la sessió iniciada, el teu <b>progrés d'aprenentatge</b> (exercicis fets, XP, ratxa, dominis) es desa a <b>Cloud Firestore</b> (Google), associat al teu identificador d'usuari, perquè el puguis recuperar i sincronitzar entre dispositius. Si tries un <b>pseudònim</b> al Perfil amb la sessió iniciada, també es desa amb el teu compte i queda reservat per a tu: ningú més no el pot fer servir. L'<b>idioma de les explicacions</b> que triïs (català, castellà o anglès) també es desa amb el teu compte, només per saber quanta gent tria cada idioma.</p>
 
         <h3>2.4 Recordatoris i notificacions (opcional, requereix activació)</h3>
         <p>Si <b>actives els recordatoris</b>, demanem el teu permís al navegador i, si l'atorgues, desem a Cloud Firestore un <b>identificador tècnic del dispositiu</b> (token de notificacions push) i les teves <b>preferències</b> (hora i freqüència). Aquestes dades serveixen únicament per enviar-te recordatoris de pràctica a través de <b>Firebase Cloud Messaging</b> (Google). Pots <b>desactivar-los</b> en qualsevol moment des de Perfil → Recordatoris; en fer-ho, deixem d'enviar-te'n.</p>
@@ -112,6 +112,7 @@
           <li>Enviar-te <b>recordatoris</b> de pràctica, si els actives.</li>
           <li>Mostrar la <b>classificació de la Lliga AprènCatalà</b>, si hi participes.</li>
           <li><b>Corregir els textos</b> que escrius als exercicis d'expressió escrita i, amb l'enquesta, saber com millorar-los.</li>
+          <li>Saber quanta gent tria cada <b>idioma de les explicacions</b>, en un recompte agregat.</li>
           <li>Respondre les consultes que ens fas pel formulari de contacte.</li>
           <li>Garantir la seguretat i el bon funcionament del servei.</li>
           <li>Complir les obligacions legals que ens corresponguin.</li>
@@ -121,7 +122,7 @@
         <h2 id="base">4. Base legal</h2>
         <ul>
           <li><b>Consentiment exprés</b> (art. 6.1.a RGPD): creació de compte, sincronització del progrés, enviament de recordatoris, participació a la Lliga AprènCatalà, correcció dels textos dels exercicis d'expressió escrita amb la seva enquesta i enviament del formulari de contacte. Pots retirar el consentiment en qualsevol moment (tancant la sessió, desactivant els recordatoris, sortint de la lliga, deixant d'enviar textos o demanant la supressió).</li>
-          <li><b>Interès legítim</b> (art. 6.1.f RGPD): tractament de dades tècniques per mantenir el servei segur i operatiu, i obtenció d'<b>estadístiques agregades de visites</b> del lloc web per entendre'n l'ús i millorar-lo. Com que aquesta mesura no fa servir galetes ni cap emmagatzematge al teu dispositiu, no requereix consentiment previ.</li>
+          <li><b>Interès legítim</b> (art. 6.1.f RGPD): tractament de dades tècniques per mantenir el servei segur i operatiu, i obtenció d'<b>estadístiques agregades de visites</b> del lloc web per entendre'n l'ús i millorar-lo. Com que aquesta mesura no fa servir galetes ni cap emmagatzematge al teu dispositiu, no requereix consentiment previ. També hi entra el recompte agregat dels idiomes de les explicacions que es trien a l'app.</li>
         </ul>
 
         <h2 id="conservacio">5. Quant de temps conservem les dades</h2>
